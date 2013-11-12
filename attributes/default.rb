@@ -25,3 +25,4 @@ default['php-fpm']['conf_file'] = conf_file
 default['php-fpm']['pid'] = pid
 default['php-fpm']['error_log'] =  error_log
 default['php-fpm']['log_level'] = "notice"
+default['php-fpm']['package'] = nil

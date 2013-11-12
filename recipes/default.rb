@@ -93,7 +93,8 @@ else
   php_fpm_service_name = "php5-fpm"
 end
 
-package php_fpm_service_name do
+package_name = node["php-fpm"]["package"] || php_fpm_service_name
+package package_name do
   action :upgrade
 end
 
