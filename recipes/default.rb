@@ -72,19 +72,20 @@ when 'debian'
   end
 
 when 'amazon', 'fedora', 'centos', 'redhat'
-  unless platform?('centos', 'redhat') && node['platform_version'].to_f >= 6.4
-    yum_key 'RPM-GPG-KEY-remi' do
-      url 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
-    end
+  # @TODO fix this to allow e.g. ius as alternative repo
+  #unless platform?('centos', 'redhat') && node['platform_version'].to_f >= 6.4
+    #yum_key 'RPM-GPG-KEY-remi' do
+      #url 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
+    #end
 
-    yum_repository 'remi' do
-      description 'Remi'
-      url 'http://rpms.famillecollet.com/enterprise/$releasever/remi/$basearch/'
-      mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/remi/mirror'
-      key 'RPM-GPG-KEY-remi'
-      action :add
-    end
-  end
+    #yum_repository 'remi' do
+      #description 'Remi'
+      #url 'http://rpms.famillecollet.com/enterprise/$releasever/remi/$basearch/'
+      #mirrorlist 'http://rpms.famillecollet.com/enterprise/$releasever/remi/mirror'
+      #key 'RPM-GPG-KEY-remi'
+      #action :add
+    #end
+  #end
 end
 
 if platform_family?("rhel")
