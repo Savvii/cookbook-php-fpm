@@ -227,3 +227,18 @@ catch_workers_output = <%= @catch_workers_output || "no" %>
 ;php_value[session.save_handler] = files
 ;php_value[session.save_path] = /var/lib/php/session
 
+<% @php_values.each do |key, value| %>
+php_value[<%= key %>] = <%= value %>
+<% end %>
+
+<% @php_flags.each do |key, flag| %>
+php_flag[<%= key %>] = <%= flag %>
+<% end %>
+
+<% @php_admin_values.each do |key, value| %>
+php_admin_value[<%= key %>] = <%= value %>
+<% end %>
+
+<% @php_admin_flags.each do |key, flag| %>
+php_admin_flag[<%= key %>] = <%= flag %>
+<% end %>
