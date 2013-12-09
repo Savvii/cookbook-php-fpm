@@ -48,6 +48,10 @@ define :php_fpm_pool, :template => "pool.conf.erb", :enable => true do
         :max_spare_servers => params[:max_spare_servers],
         :max_requests => params[:max_requests],
         :catch_workers_output => params[:catch_workers_output],
+        :php_values => params[:php_values] || [],
+        :php_flags => params[:php_flags] || [],
+        :php_admin_values => params[:php_admin_values] || [],
+        :php_admin_flags => params[:php_admin_flags] || [],
         :params => params
       )
       notifies :restart, "service[php-fpm]"
