@@ -23,18 +23,16 @@ define :php_fpm_pool, :template => "pool.conf.erb", :enable => true do
 
   include_recipe "php-fpm"
 
-  conf_file = "#{node['php-fpm']['conf_dir']}/pools/#{pool_name}.conf"
+  conf_file = "#{node['php-fpm']['pool_conf_dir']}/#{pool_name}.conf"
 
   if params[:enable]
     template conf_file do
-      only_if "test -d #{node['php-fpm']['conf_dir']}/pools || mkdir -p #{node['php-fpm']['conf_dir']}/pools"
+      only_if "test -d #{node['php-fpm']['pool_conf_dir']} || mkdir -p #{node['php-fpm']['pool_conf_dir']}"
       source params[:template]
       owner "root"
       group "root"
       mode 00644
-      if params[:cookbook]
-        cookbook params[:cookbook]
-      end
+      cookbook params[:cookbook] || "php-fpm"
       variables(
         :pool_name => pool_name,
         :listen => params[:listen],
@@ -48,10 +46,7 @@ define :php_fpm_pool, :template => "pool.conf.erb", :enable => true do
         :max_spare_servers => params[:max_spare_servers],
         :max_requests => params[:max_requests],
         :catch_workers_output => params[:catch_workers_output],
-        :php_values => params[:php_values] || [],
-        :php_flags => params[:php_flags] || [],
-        :php_admin_values => params[:php_admin_values] || [],
-        :php_admin_flags => params[:php_admin_flags] || [],
+        :php_options => params[:php_options] || {},
         :params => params
       )
       notifies :restart, "service[php-fpm]"
